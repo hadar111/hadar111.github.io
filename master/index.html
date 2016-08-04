@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <button onclick="bt1Clicked()" style="    background: red; font-size: 25px;">
+        Button 1
+    </button>
+
+    <button onclick="bt2Clicked()" style="    background: red; font-size: 25px;">
+        Button 2
+    </button>
+
+    <button onclick="bt3Clicked()" style="    background: red; font-size: 25px;">
+        Button 3
+    </button>
+
+    <button onclick="bt4Clicked()" style="    background: greenyellow; font-size: 25px;">
+        Send MSG
+    </button>
+
+
+    <iframe id="mainIFrame" style="width: 100%; border: 0; height: 450px;"></iframe>
+
+</body>
+
+<script>
+
+   // document.getElementById('mainIFrame').src = "http://www.walla.com";
+
+
+ //  document.getElementById('mainIFrame').src = "../subPages/sub1.html";
+
+
+    function bt1Clicked() {
+
+       // document.getElementById('mainIFrame').src = "../subPages/sub1.html";
+
+        document.getElementById('mainIFrame').src = "https://dl.dropboxusercontent.com/u/40235837/subPages/sub1.html";
+
+
+
+
+    }
+
+    function bt2Clicked() {
+        document.getElementById('mainIFrame').src = "../subPages/sub2.html";
+    }
+
+    function bt3Clicked() {
+        document.getElementById('mainIFrame').src = "../subPages/sub3.html";
+    }
+
+
+   function bt4Clicked() {
+
+       var iframeBody = document.getElementById('mainIFrame').contentWindow.document.body;
+       //iframeHeight = iframeBody.scrollHeight;
+       //iframeWidth = iframeBody.scrollWidth;
+
+       var iframe = document.getElementById('mainIFrame');
+       iframe.contentWindow.postMessage('ABC DDD',"http://localhost:63342/");
+
+   }
+
+
+
+   function receiveMessage(event)
+   {
+       console.log("main");
+       console.log(event);
+       // Do we trust the sender of this message?
+       if (event.origin !== "http://example.com:8080")
+           return;
+
+       // event.source is window.opener
+       // event.data is "hello there!"
+
+       // Assuming you've verified the origin of the received message (which
+       // you must do in any case), a convenient idiom for replying to a
+       // message is to call postMessage on event.source and provide
+       // event.origin as the targetOrigin.
+       event.source.postMessage("hi there yourself!  the secret response " +
+               "is: rheeeeet!",
+               event.origin);
+   }
+
+   window.addEventListener("message", receiveMessage, false);
+
+
+
+
+
+
+
+
+
+
+</script>
+</html>
